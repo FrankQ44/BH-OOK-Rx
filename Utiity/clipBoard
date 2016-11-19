@@ -1,0 +1,57 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		  if ((rbIndex <= 0) || (_bitCount == 18) || (_bitCount == 25) )
+		  
+
+
+
+
+
+  const byte pacBits = 32;          // Number of bits in a packet (25)
+  const byte pacBitsShort = 18;     // Number of bits in a packet (18)
+  const byte pacBitsLong = 25;      // Number of bits in a packet (18)
+  
+
+  static volatile  unsigned long recvBuffer = 0;             // Recieve packet buffer 32 bit
+  static volatile  unsigned long recvBufferF = 0;            // Recieve packet buffer 32 bit
+  static volatile  byte rbFull = 0;                          // Recieve packet buffer ready
+  
+  static volatile  byte rbIndex = (pacBits - 1);            // Recieve packet buffer index
+  static volatile  byte rbIndexFlag = 0;
+ 
+  static volatile  byte rbIndexShort = (pacBitsShort - 1);
+  static volatile  byte rbShortFlag = 0;
+  
+  static volatile  byte rbIndexLong = (pacBitsLong - 1);
+  static volatile  byte rbLongFlag = 0;
+  
+  static volatile  byte _bitCount = 0;  
+
+
+
+
+   ////////////////////////////////////////////////////////////////////////////////////
+    // firstBit_4 
+	// intializes buffers, indexes, flags and bit count
+    case 4:   // check for First  bit
+       rbFull = 0;
+       rbIndex = (pacBits - 1);                    // Set to msb
+       rbIndexShort = (pacBitsShort - 1);
+	   rbIndexLong = (pacBitsLong - 1);
+       recvBuffer = 0;                            // Clear buffer
+       rbShortFlag = 0;
+	   rbLongFlag = 0;
+	   
+	   _bitCount = 0;						// clear bit count
